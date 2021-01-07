@@ -19,5 +19,6 @@ def test_is_valid_path():
     assert is_valid_path(TRY_BOARD, [(0,0), (1,1), (2,2), (3,3)], SMALL_DICT) is None
     assert is_valid_path(TRY_BOARD, [(0,0), (0,1), (0,2), (0,3), (0,4)], SMALL_DICT) is None
 
-
+def test_length_n_words():
+    assert find_length_n_words(4, TRY_BOARD, SMALL_DICT) == [("NICE",[(0,0),(0,1),(1,0),(1,1)])]
 
