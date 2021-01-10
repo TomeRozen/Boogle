@@ -40,9 +40,10 @@ def find_length_n_words(n, board, words):
                 for col_ind, col in enumerate(row):
                     if board[row_ind][col_ind][0] == word[0]:
                         word_paths = _helper_find_length(board, word, row_ind, col_ind, word_paths, [], "")
-            if word_paths != []:
-                for path in word_paths:
-                    paths_list.append((word,path))
+                        if word_paths != []:
+                            for path in word_paths:
+                                paths_list.append((word,path))
+                            word_paths = []
     return paths_list
 
 def _helper_find_length(board, word, row_ind, col_ind, word_paths, cur_path, seq):
@@ -50,14 +51,15 @@ def _helper_find_length(board, word, row_ind, col_ind, word_paths, cur_path, seq
     seq = seq+board[row_ind][col_ind]
 
     if seq != word[:len(seq)]:
-        cur_path.pop(-1)
+        del cur_path[-len(board[row_ind][col_ind]):]
         return
     if len(seq) > len(word):
-        cur_path.pop(-1)
+        del cur_path[-len(board[row_ind][col_ind]):]
         return
     if len(seq) == len(word):
         if seq == word:
-            word_paths.append(cur_path)
+            word_paths.append(cur_path[:])
+            del cur_path[-len(board[row_ind][col_ind]):]
             return
 
     if row_ind < len(board)-1:
@@ -98,6 +100,8 @@ def _helper_find_length(board, word, row_ind, col_ind, word_paths, cur_path, seq
     if row_ind < len(board) -1 and col_ind < len(board[0]) -1:
         _helper_find_length(board, word, row_ind + 1, col_ind + 1, word_paths,  cur_path,
                         seq)
+
+    del cur_path[-len(board[row_ind][col_ind]):]
 
     return word_paths
 
