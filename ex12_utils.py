@@ -41,7 +41,8 @@ def find_length_n_words(n, board, words):
                     if board[row_ind][col_ind][0] == word[0]:
                         word_paths = _helper_find_length(board, word, row_ind, col_ind, word_paths, [], "")
             if word_paths != []:
-                paths_list.append((word,word_paths))
+                for path in word_paths:
+                    paths_list.append((word,path))
     return paths_list
 
 def _helper_find_length(board, word, row_ind, col_ind, word_paths, cur_path, seq):
