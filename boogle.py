@@ -13,9 +13,20 @@ class BoogleClass:
         self._gui = BoogleGUI()
         self._board = None
         self.end_time = None
+        self.cur_seq = ""
 
         self._gui._start_button["command"] = self.start_action
 
+    def create_key_cmd(self, row, col):
+        def fun():
+            self._model.key_clicked(row, col)
+            self._gui.set_display(self._model.get_cur_seq())
+        return fun
+
+    def assign_key(self, row, col):
+        self._gui.conf_key(str(row)+","+str(col),
+                           self._model.board[row][col],
+                           self.create_key_cmd(row, col))
         self._gui._submit_button["command"] = self._model.submit_word
 
 
@@ -27,9 +38,12 @@ class BoogleClass:
 
     def start_action(self):
         self.end_time = self._model.calc_end_time(GAME_MINUTES)
-        self._board = randomize_board()
+        self._model.reset_all()
+        self._model.board = randomize_board()
         self._gui.place_keys(BOARD_SIZE)
-        self.assign_keys()
+        for row in range(len(self._model.board)):
+            for col in range(len(self._model.board[0])):
+                self.assign_key(row, col)
         self._gui._start_button["text"] = "Re-start!"
         self._gui._start_button["bg"] = "dark orange"
 
@@ -48,8 +62,8 @@ class BoogleClass:
         self._gui._main_window.after(60, self.display)
 
     def run(self):
-        self.display()
         self._animate()
+        self.apply_word_submittion()
         self._gui.run()
 
 if __name__ == "__main__":
