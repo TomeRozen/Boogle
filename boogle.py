@@ -13,9 +13,11 @@ class BoogleClass:
         self._gui = BoogleGUI()
         self._board = None
         self.end_time = None
-        self.cur_seq = ""
 
         self._gui._start_button["command"] = self.start_action
+
+        self._gui._submit_button["command"] = self._model.submit_word
+
 
     def assign_keys(self):
         for row in range(len(self._board)):
@@ -29,6 +31,7 @@ class BoogleClass:
         self._gui.place_keys(BOARD_SIZE)
         self.assign_keys()
         self._gui._start_button["text"] = "Re-start!"
+        self._gui._start_button["bg"] = "dark orange"
 
     def _animate(self):
         if self.end_time is not None:
@@ -37,13 +40,16 @@ class BoogleClass:
         self._gui._main_window.after(60, self._animate)
 
 
-    def apply_word_submittion(self):
-        self._gui._score_label["text"] += str(self._model._score)
-        # self._gui._dict_list_label["text"] += splitself._model._words_found
+    def display(self):
+        # self._gui._curr_seq_label["text"] = self._model.get_cur_seq()
+        self._gui._score_label["text"] = "Score: " + str(self._model._score)
+        self._gui._dict_list_label["text"] = "\n".join(self._model._words_found)
+
+        self._gui._main_window.after(60, self.display)
 
     def run(self):
+        self.display()
         self._animate()
-        self.apply_word_submittion()
         self._gui.run()
 
 if __name__ == "__main__":
