@@ -29,8 +29,6 @@ def is_valid_path(board: List[List[str]], path: List, words: Dict):
         return word
 
 
-
-
 def find_length_n_words(n, board, words):
     paths_list = []
     for word in words:
