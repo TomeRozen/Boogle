@@ -55,17 +55,10 @@ class BoogleClass:
         self._gui._main_window.after(60, self._animate)
 
 
-    # def display(self):
-    #     self._gui._curr_seq_label["text"] = self._model.get_cur_seq()
-    #     self._gui._score_label["text"] = "Score: " + str(self._model._score)
-    #     self._gui._dict_list_label["text"] = "\n".join(self._model._words_found)
-    #     self._gui._main_window.after(60, self.display)
-
 
     def run(self):
         self._animate()
         self._gui.run()
-        # self.display()
 
 if __name__ == "__main__":
     boogle_game = BoogleClass()
