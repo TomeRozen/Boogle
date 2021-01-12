@@ -26,7 +26,7 @@ class BoogleGUI:
                                        bg="green3")
         self._keys_frame = tki.Frame(self._outer_frame, bg="gray35")
         self._curr_seq_label = tki.Label(self._outer_frame,bg="pale violet red")
-        self._score_label = tki.Label(self._right_frame, text="Score: ", bg="salmon")
+        self._score_label = tki.Label(self._right_frame, text="Score: 0", bg="salmon")
         self._score_label_count =tki.Label(self._right_frame)
         self._dict_list_label = tki.Label(self._right_frame, text="Your Words:\n", bg="coral")
         self._submit_button = tki.Button(self._outer_frame, text="Submit Your Word", bg="green2")
@@ -76,6 +76,13 @@ class BoogleGUI:
 
     def set_display(self, txt):
         self._display_label["text"] = txt
+
+    def set_dict_display(self, txt):
+        self._dict_list_label["text"] = txt
+
+    def set_score_display(self, txt):
+        self._score_label["text"] = txt
+
 
 if __name__ == '__main__':
     bg = BoogleGUI()

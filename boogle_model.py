@@ -23,9 +23,13 @@ class BoogleModel:
     def submit_word(self):
         if self._cur_seq in self._words_dict:
             if self._cur_seq not in self._words_found:
+                print(self._cur_seq)
                 self._words_found.append(self._cur_seq)
                 self._score += len(self._cur_seq) ** 2
-                self._cur_seq = ""
+                self.reset_all()
+        else:
+            self.reset_all()
+
 
     def legal_locations(self, location):
         list_of_locations = []

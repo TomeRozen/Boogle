@@ -16,6 +16,7 @@ class BoogleClass:
         self.cur_seq = ""
 
         self._gui._start_button["command"] = self.start_action
+        self._gui._submit_button["command"] = self.submission
 
     def create_key_cmd(self, row, col):
         def fun():
@@ -28,14 +29,12 @@ class BoogleClass:
         self._gui.conf_key(str(row)+","+str(col),
                            self._model.board[row][col],
                            self.create_key_cmd(row, col))
-        self._gui._submit_button["command"] = self._model.submit_word
 
-
-    def assign_keys(self):
-        for row in range(len(self._board)):
-            for col in range(len(self._board[0])):
-                self._gui.set_key_text(str(row)+","+str(col),
-                                       self._board[row][col])
+    def submission(self):
+        self._model.submit_word()
+        self._gui.set_dict_display("Your Words:\n"+"\n".join(self._model._words_found))
+        self._gui.set_score_display("Score: " + str(self._model._score))
+        self._gui.set_display("")
 
     def start_action(self):
         self.end_time = self._model.calc_end_time(GAME_MINUTES)
@@ -56,16 +55,17 @@ class BoogleClass:
         self._gui._main_window.after(60, self._animate)
 
 
-    def display(self):
-        # self._gui._curr_seq_label["text"] = self._model.get_cur_seq()
-        self._gui._score_label["text"] = "Score: " + str(self._model._score)
-        self._gui._dict_list_label["text"] = "\n".join(self._model._words_found)
+    # def display(self):
+    #     self._gui._curr_seq_label["text"] = self._model.get_cur_seq()
+    #     self._gui._score_label["text"] = "Score: " + str(self._model._score)
+    #     self._gui._dict_list_label["text"] = "\n".join(self._model._words_found)
+    #     self._gui._main_window.after(60, self.display)
 
-        self._gui._main_window.after(60, self.display)
 
     def run(self):
         self._animate()
         self._gui.run()
+        # self.display()
 
 if __name__ == "__main__":
     boogle_game = BoogleClass()
