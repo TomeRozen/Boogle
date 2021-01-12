@@ -1,5 +1,5 @@
 import tkinter as tki
-
+from tkinter import messagebox
 REGULAR_COLOR = 'lightgray'
 BUTTON_STYLE = {"font": ("Courier", 30),
                 "borderwidth": 1,
@@ -12,24 +12,21 @@ class BoogleGUI:
         root.title("Boogle!")
         root.resizable(False, False)
         self._main_window = root
-        self._outer_frame = tki.Frame(root, bg="gray35",
-                                      highlightbackground="gray26",
+        self._outer_frame = tki.Frame(root, bg="sienna1",
+                                      highlightbackground="sienna1",
                                       highlightthickness=3)
-        self._display_label = tki.Label(self._outer_frame, width=25)
-        self._right_frame = tki.Frame(self._outer_frame, bg="gray35")
+        self._display_label = tki.Label(self._outer_frame, width=25, bg="tan1")
+        self._right_frame = tki.Frame(self._outer_frame, bg="sienna1")
         self._countdown_label = tki.Label(self._right_frame, text="3:00:00",
                                           bg="SkyBlue3",
-                                          highlightbackground="gray17",
+                                          highlightbackground="sienna1",
                                           highlightthickness=1)
-        self._start_button = tki.Button(self._outer_frame, text="Start",
-                                       font=("Courier", 20), width=11,
+        self._start_button = tki.Button(self._outer_frame, text="Start", width=11,
                                        bg="green3")
-        self._keys_frame = tki.Frame(self._outer_frame, bg="gray35")
-        self._curr_seq_label = tki.Label(self._outer_frame,bg="pale violet red")
-        self._score_label = tki.Label(self._right_frame, text="Score: 0", bg="salmon")
-        self._score_label_count =tki.Label(self._right_frame)
-        self._dict_list_label = tki.Label(self._right_frame, text="Your Words:\n", bg="coral")
-        self._submit_button = tki.Button(self._outer_frame, text="Submit Your Word", bg="green2")
+        self._keys_frame = tki.Frame(self._outer_frame, bg="sienna1")
+        self._score_label = tki.Label(self._right_frame, text="Score: 0", bg="tomato2")
+        self._dict_list_label = tki.Label(self._right_frame, text="Your Words:\n", bg="IndianRed1")
+        self._submit_button = tki.Button(self._outer_frame, text="Submit Your Word", bg="lime green")
         self.pack()
 
         self._keys = {}
@@ -42,7 +39,6 @@ class BoogleGUI:
         self._start_button.pack(side=tki.BOTTOM)
         self._score_label.pack(side=tki.TOP, expand=False, fill=tki.BOTH)
         self._dict_list_label.pack(side=tki.TOP, expand=False, fill=tki.BOTH)
-        self._curr_seq_label.pack(side=tki.TOP, expand=True, fill=tki.BOTH)
 
     def _create_buttons_in_lower_frame(self, board_size) -> None:
         for i in range(board_size):
@@ -83,6 +79,13 @@ class BoogleGUI:
     def set_score_display(self, txt):
         self._score_label["text"] = txt
 
+    def end_game(self, score):
+        return tki.messagebox.askyesno(title="Game Over",
+                            message="Time is out.\n Your Score is: " +
+                            str(score) + "\nDo you want to play again? " )
+
+    def quit_game(self):
+        self._main_window.destroy()
 
 if __name__ == '__main__':
     bg = BoogleGUI()

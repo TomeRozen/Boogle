@@ -70,8 +70,15 @@ class BoogleModel:
 
     def get_countdown(self, end_time):
         left_time = end_time - datetime.now()
+        if left_time < timedelta(minutes=0):
+            return "0:00:00"
         return str(left_time)[3:7]+":"+str(left_time)[8:10]
 
     def get_cur_seq(self):
         return self._cur_seq
 
+    def set_score(self):
+        self._score = 0
+
+    def set_words_found_list(self):
+        self._words_found = []
