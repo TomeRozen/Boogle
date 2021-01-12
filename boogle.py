@@ -13,6 +13,7 @@ class BoogleClass:
         self._gui = BoogleGUI()
         self._board = randomize_board()
         self.end_time = None
+        self.cur_seq = ""
 
         self._gui._start_button["command"] = self.start_action
 
@@ -26,8 +27,14 @@ class BoogleClass:
                 self._model.get_countdown(self.end_time)
         self._gui._main_window.after(60, self._animate)
 
+
+    def apply_word_submittion(self):
+        self._gui._score_label["text"] += str(self._model._score)
+        # self._gui._dict_list_label["text"] += splitself._model._words_found
+
     def run(self):
         self._animate()
+        self.apply_word_submittion()
         self._gui.run()
 
 if __name__ == "__main__":
