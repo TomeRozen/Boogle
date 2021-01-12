@@ -4,7 +4,8 @@ REGULAR_COLOR = 'lightgray'
 BUTTON_STYLE = {"font": ("Courier", 30),
                 "borderwidth": 1,
                 "bg": REGULAR_COLOR,
-                    }
+                }
+
 
 class BoogleGUI:
     def __init__(self):
@@ -22,14 +23,18 @@ class BoogleGUI:
                                           highlightbackground="gray17",
                                           highlightthickness=1)
         self._start_button = tki.Button(self._outer_frame, text="Start",
-                                       font=("Courier", 20), width=11,
-                                       bg="green3")
+                                        font=("Courier", 20), width=11,
+                                        bg="green3")
         self._keys_frame = tki.Frame(self._outer_frame, bg="gray35")
-        self._curr_seq_label = tki.Label(self._outer_frame,bg="pale violet red")
-        self._score_label = tki.Label(self._right_frame, text="Score: 0", bg="salmon")
-        self._score_label_count =tki.Label(self._right_frame)
-        self._dict_list_label = tki.Label(self._right_frame, text="Your Words:\n", bg="coral")
-        self._submit_button = tki.Button(self._outer_frame, text="Submit Your Word", bg="green2")
+        self._curr_seq_label = tki.Label(self._outer_frame,
+                                         bg="pale violet red")
+        self._score_label = tki.Label(self._right_frame, text="Score: 0",
+                                      bg="salmon")
+        self._score_label_count = tki.Label(self._right_frame)
+        self._dict_list_label = tki.Label(self._right_frame,
+                                          text="Your Words:\n", bg="coral")
+        self._submit_button = tki.Button(self._outer_frame,
+                                         text="Submit Your Word", bg="green2")
         self.pack()
 
         self._keys = {}
@@ -44,10 +49,12 @@ class BoogleGUI:
         self._dict_list_label.pack(side=tki.TOP, expand=False, fill=tki.BOTH)
         self._curr_seq_label.pack(side=tki.TOP, expand=True, fill=tki.BOTH)
 
-    def _create_buttons_in_lower_frame(self, board_size) -> None:
+    def _create_buttons_in_keys_frame(self, board_size) -> None:
         for i in range(board_size):
-            tki.Grid.columnconfigure(self._keys_frame, i, weight=1)  # type: ignore
-            tki.Grid.rowconfigure(self._keys_frame, i, weight=1)  # type: ignore
+            tki.Grid.columnconfigure(self._keys_frame, i,
+                                     weight=1)  # type: ignore
+            tki.Grid.rowconfigure(self._keys_frame, i,
+                                  weight=1)  # type: ignore
 
         for i in range(board_size):
             for j in range(board_size):
@@ -56,17 +63,21 @@ class BoogleGUI:
     def _make_button(self, button_char: str, row: int, col: int,
                      rowspan: int = 1, columnspan: int = 1) -> tki.Button:
         button = tki.Button(self._keys_frame, text=button_char, **BUTTON_STYLE)
-        button.grid(row=row, column=col, rowspan=rowspan, columnspan=columnspan, sticky=tki.NSEW)
-        self._keys[str(row)+","+str(col)] = button
+        button.grid(row=row, column=col, rowspan=rowspan,
+                    columnspan=columnspan, sticky=tki.NSEW)
+        self._keys[str(row) + "," + str(col)] = button
         return button
 
     def place_keys(self, board_size):
         self._keys_frame.pack(side=tki.BOTTOM, fill=tki.BOTH, expand=True)
-        self._create_buttons_in_lower_frame(board_size)
+        self._create_buttons_in_keys_frame(board_size)
         self._submit_button.pack(side=tki.TOP, expand=True, fill=tki.X)
 
-    def conf_key(self, key_name, txt, cmd, color):
-        self._keys[key_name].configure(text=txt, command=cmd, bg=color)
+    def conf_key(self, key_name, txt, cmd):
+        self._keys[key_name].configure(text=txt, command=cmd)
+
+    def conf_key_color(self, key_name, color):
+        self._keys[key_name].configure(bg=color)
 
     def run(self):
         self._main_window.mainloop()

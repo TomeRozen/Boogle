@@ -7,6 +7,7 @@ GAME_MINUTES = 3
 BOARD_SIZE = 4
 GOOD_KEY_COLOR = "DarkOliveGreen2"
 BAD_KEY_COLOR ="coral1"
+REGULAR_COLOR = 'lightgray'
 
 
 class BoogleClass:
@@ -27,12 +28,9 @@ class BoogleClass:
         return fun
 
     def assign_key(self, row, col):
-        color = BAD_KEY_COLOR
-        if self._model._prev_button != "" and (row, col) in self._model.legal_locations():
-            color = GOOD_KEY_COLOR
         self._gui.conf_key(str(row)+","+str(col),
                            self._model.board[row][col],
-                           self.create_key_cmd(row, col), color)
+                           self.create_key_cmd(row, col))
 
     def submission(self):
         self._model.submit_word()
@@ -58,9 +56,22 @@ class BoogleClass:
                 self._model.get_countdown(self.end_time)
         self._gui._main_window.after(60, self._animate)
 
+    def _color_keys(self):
+        if self._model.board is not None:
+            for row in range(len(self._model.board)):
+                for col in range(len(self._model.board[0])):
+                    if self._model.legal_locations():
+                        if (row, col) in self._model.legal_locations() and (row, col) not in self._model.get_keys_pressed():
+                            self._gui.conf_key_color(str(row) + "," + str(col), GOOD_KEY_COLOR)
+                        else:
+                            self._gui.conf_key_color(str(row) + "," + str(col), BAD_KEY_COLOR)
+                    else:
+                        self._gui.conf_key_color(str(row) + "," + str(col), REGULAR_COLOR)
+        self._gui._main_window.after(60, self._color_keys)
 
     def run(self):
         self._animate()
+        self._color_keys()
         self._gui.run()
 
 if __name__ == "__main__":

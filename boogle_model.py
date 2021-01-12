@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 DICT_FILE = "boggle_dict.txt"
 
+
 class BoogleModel:
     _cur_seq: str
     _prev_button: Tuple
@@ -15,6 +16,7 @@ class BoogleModel:
         self._words_found = list()
         self._score = 0
         self.board = None
+        self._prev_button = ""
 
     def reset_all(self):
         self._cur_seq = ""
@@ -35,26 +37,25 @@ class BoogleModel:
         else:
             self.reset_all()
 
-
     def legal_locations(self):
         legal_locations = []
         if self._prev_button == "":
-            return -1
+            return False
         else:
             cur_row = self._prev_button[0]
             cur_col = self._prev_button[1]
-            legal_locations.extend([(cur_row, cur_col-1), (cur_row, cur_col+1),
-                                   (cur_row-1, cur_col-1), (cur_row-1, cur_col),
-                                   (cur_row-1, cur_col+1), (cur_row+1, cur_col-1),
-                                    (cur_row+1, cur_col), (cur_row+1, cur_col+1)])
+            legal_locations.extend(
+                [(cur_row, cur_col - 1), (cur_row, cur_col + 1),
+                 (cur_row - 1, cur_col - 1), (cur_row - 1, cur_col),
+                 (cur_row - 1, cur_col + 1), (cur_row + 1, cur_col - 1),
+                 (cur_row + 1, cur_col), (cur_row + 1, cur_col + 1)])
             return legal_locations
-            
 
     def key_clicked(self, row, col):
         possible_moves = self.legal_locations()
         cur_key = (row, col)
-        if (possible_moves == -1 or cur_key in
-                self.legal_locations()) and cur_key not in \
+        if (possible_moves is False or cur_key in
+            self.legal_locations()) and cur_key not in \
                 self._keys_pressed:
 
             if self._cur_seq is None:
@@ -64,14 +65,19 @@ class BoogleModel:
 
             self._prev_button = (row, col)
             self._keys_pressed.append(self._prev_button)
-        
+
     def calc_end_time(self, game_time):
         return datetime.now() + timedelta(minutes=game_time)
 
     def get_countdown(self, end_time):
         left_time = end_time - datetime.now()
-        return str(left_time)[3:7]+":"+str(left_time)[8:10]
+        return str(left_time)[3:7] + ":" + str(left_time)[8:10]
 
     def get_cur_seq(self):
         return self._cur_seq
 
+    def get_prev_button(self):
+        return self._prev_button
+
+    def get_keys_pressed(self):
+        return self._keys_pressed
