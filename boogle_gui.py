@@ -74,6 +74,9 @@ class BoogleGUI:
     def get_start_button(self):
         return self._start_button
 
+    def set_display(self, txt):
+        self._display_label["text"] = txt
+
 if __name__ == '__main__':
     bg = BoogleGUI()
     bg.run()

@@ -37,7 +37,6 @@ class BoogleModel:
         else:
             self._cur_seq += self.board[row][col]
 
-
     def calc_end_time(self, game_time):
         return datetime.now() + timedelta(minutes=game_time)
 

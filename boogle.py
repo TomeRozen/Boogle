@@ -21,6 +21,7 @@ class BoogleClass:
         def fun():
             self._model.key_clicked(row, col)
             self._gui.set_display(self._model.get_cur_seq())
+            print(self._model.get_cur_seq())
         return fun
 
     def assign_key(self, row, col):
@@ -39,6 +40,7 @@ class BoogleClass:
     def start_action(self):
         self.end_time = self._model.calc_end_time(GAME_MINUTES)
         self._model.reset_all()
+        self._gui.set_display(self._model.get_cur_seq())
         self._model.board = randomize_board()
         self._gui.place_keys(BOARD_SIZE)
         for row in range(len(self._model.board)):
@@ -63,7 +65,6 @@ class BoogleClass:
 
     def run(self):
         self._animate()
-        self.apply_word_submittion()
         self._gui.run()
 
 if __name__ == "__main__":
