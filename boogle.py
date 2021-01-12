@@ -16,13 +16,13 @@ class BoogleClass:
         self._gui._start_button["command"] = self.start_action
 
     def start_action(self):
-        self.end_time = self._model.calc_end_time()
+        self.end_time = self._model.calc_end_time(GAME_MINUTES)
 
     def _animate(self):
         if self.end_time is not None:
             self._gui._countdown_label["text"] = \
                 self._model.get_countdown(self.end_time)
-        self._gui._main_window.after(15, self._animate)
+        self._gui._main_window.after(60, self._animate)
 
     def run(self):
         self._animate()

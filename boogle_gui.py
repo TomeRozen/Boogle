@@ -16,8 +16,9 @@ class BoogleGUI:
                                           highlightbackground="gray17",
                                           highlightthickness=1)
         self._start_button = tki.Button(self._outer_frame, text="Start",
-                                       font=("Courier", 20), width=11,
-                                       bg="green3")
+                                        font=("Courier", 20), width=11,
+                                        highlightbackground="forest green",
+                                        bg="green3")
         self.pack()
 
     def pack(self):

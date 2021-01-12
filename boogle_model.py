@@ -17,8 +17,8 @@ class BoogleModel:
         list_of_locations = []
         # for
 
-    def calc_end_time(self):
-        return datetime.now() + timedelta(minutes=3)
+    def calc_end_time(self, game_time):
+        return datetime.now() + timedelta(minutes=game_time)
 
     def get_countdown(self, end_time):
         left_time = end_time - datetime.now()
