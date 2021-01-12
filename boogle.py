@@ -4,6 +4,7 @@ from boggle_board_randomizer import *
 from datetime import timedelta
 
 GAME_MINUTES = 3
+BOARD_SIZE = 4
 
 
 class BoogleClass:
@@ -17,6 +18,7 @@ class BoogleClass:
 
     def start_action(self):
         self.end_time = self._model.calc_end_time(GAME_MINUTES)
+        self._gui.pack_keys(BOARD_SIZE)
 
     def _animate(self):
         if self.end_time is not None:

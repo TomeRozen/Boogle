@@ -1,9 +1,16 @@
 import tkinter as tki
 
+REGULAR_COLOR = 'lightgray'
+BUTTON_STYLE = {"font": ("Courier", 30),
+                "borderwidth": 1,
+                "bg": REGULAR_COLOR,
+                    }
+
 class BoogleGUI:
     def __init__(self):
         root = tki.Tk()
         root.title("Boogle!")
+        root.resizable(False, False)
 
         self._main_window = root
         self._outer_frame = tki.Frame(root, bg="gray35",
@@ -19,14 +26,37 @@ class BoogleGUI:
                                         font=("Courier", 20), width=11,
                                         highlightbackground="forest green",
                                         bg="green3")
+        self._keys_frame = tki.Frame(self._outer_frame, bg="gray35")
         self.pack()
+        self._keys = {}
 
     def pack(self):
-        self._outer_frame.pack(side=tki.TOP, fill=tki.Y, expand=True)
+        self._outer_frame.pack(side=tki.TOP, fill=tki.BOTH, expand=True)
         self._display_label.pack(side=tki.TOP, fill=tki.BOTH)
-        self._right_frame.pack(side=tki.RIGHT, fill=tki.BOTH, expand=True)
+        self._right_frame.pack(side=tki.RIGHT, fill=tki.Y, expand=True)
         self._countdown_label.pack(side=tki.TOP)
         self._start_button.pack(side=tki.BOTTOM)
+
+    def _create_buttons_in_lower_frame(self, board_size) -> None:
+        for i in range(board_size):
+            tki.Grid.columnconfigure(self._keys_frame, i, weight=1)  # type: ignore
+            tki.Grid.rowconfigure(self._keys_frame, i, weight=1)  # type: ignore
+
+        for i in range(board_size):
+            for j in range(board_size):
+                self._make_button("", i, j)
+
+    def _make_button(self, button_char: str, row: int, col: int,
+                     rowspan: int = 1, columnspan: int = 1) -> tki.Button:
+        button = tki.Button(self._keys_frame, text=button_char, **BUTTON_STYLE)
+        button.grid(row=row, column=col, rowspan=rowspan, columnspan=columnspan, sticky=tki.NSEW)
+        self._keys["("+str(row)+","+str(col)+")"] = button
+        return button
+
+    def pack_keys(self, board_size):
+        self._keys_frame.pack(side=tki.BOTTOM, fill=tki.BOTH, expand=True)
+        self._create_buttons_in_lower_frame(board_size)
+
 
     def run(self):
         self._main_window.mainloop()
