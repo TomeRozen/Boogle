@@ -65,8 +65,8 @@ class BoogleGUI:
         self._create_buttons_in_lower_frame(board_size)
         self._submit_button.pack(side=tki.TOP, expand=True, fill=tki.X)
 
-    def conf_key(self, key_name, txt, cmd):
-        self._keys[key_name].configure(text=txt, command=cmd)
+    def conf_key(self, key_name, txt, cmd, color):
+        self._keys[key_name].configure(text=txt, command=cmd, bg=color)
 
     def run(self):
         self._main_window.mainloop()

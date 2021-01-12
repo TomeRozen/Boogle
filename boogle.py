@@ -5,6 +5,8 @@ from datetime import timedelta
 
 GAME_MINUTES = 3
 BOARD_SIZE = 4
+GOOD_KEY_COLOR = "DarkOliveGreen2"
+BAD_KEY_COLOR ="coral1"
 
 
 class BoogleClass:
@@ -22,13 +24,15 @@ class BoogleClass:
         def fun():
             self._model.key_clicked(row, col)
             self._gui.set_display(self._model.get_cur_seq())
-            print(self._model.get_cur_seq())
         return fun
 
     def assign_key(self, row, col):
+        color = BAD_KEY_COLOR
+        if self._model._prev_button != "" and (row, col) in self._model.legal_locations():
+            color = GOOD_KEY_COLOR
         self._gui.conf_key(str(row)+","+str(col),
                            self._model.board[row][col],
-                           self.create_key_cmd(row, col))
+                           self.create_key_cmd(row, col), color)
 
     def submission(self):
         self._model.submit_word()
