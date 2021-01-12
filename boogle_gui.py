@@ -17,7 +17,7 @@ class BoogleGUI:
                                       highlightthickness=3)
         self._display_label = tki.Label(self._outer_frame, width=25, bg="tan1")
         self._right_frame = tki.Frame(self._outer_frame, bg="sienna1")
-        self._countdown_label = tki.Label(self._right_frame, text="3:00:00",
+        self._countdown_label = tki.Label(self._right_frame, text="00:00:00",
                                           bg="SkyBlue3",
                                           highlightbackground="sienna1",
                                           highlightthickness=1)
