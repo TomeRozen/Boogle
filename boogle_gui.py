@@ -57,14 +57,19 @@ class BoogleGUI:
                      rowspan: int = 1, columnspan: int = 1) -> tki.Button:
         button = tki.Button(self._keys_frame, text=button_char, **BUTTON_STYLE)
         button.grid(row=row, column=col, rowspan=rowspan, columnspan=columnspan, sticky=tki.NSEW)
-        self._keys["("+str(row)+","+str(col)+")"] = button
+        self._keys[str(row)+","+str(col)] = button
         return button
 
-    def pack_keys(self, board_size):
+    def place_keys(self, board_size):
         self._keys_frame.pack(side=tki.BOTTOM, fill=tki.BOTH, expand=True)
         self._create_buttons_in_lower_frame(board_size)
         self._submit_button.pack(side=tki.TOP, expand=True, fill=tki.X)
 
+    def get_key(self, location):
+        return self._keys[location]
+
+    def set_key_text(self, key_name, txt):
+        self._keys[key_name].configure(text=txt)
 
     def run(self):
         self._main_window.mainloop()
