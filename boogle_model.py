@@ -1,8 +1,9 @@
+from typing import Tuple
 from ex12_utils import *
 from datetime import datetime, timedelta
 class BoogleModel:
     _cur_seq: str
-    _prev_button: str
+    _prev_button: Tuple
     _cur_display: str
 
     def __init__(self):
@@ -32,15 +33,28 @@ class BoogleModel:
 
 
     def legal_locations(self, location):
-        list_of_locations = []
-        # for
+        legal_locations = []
+        if self._prev_button == "":
+            return -1
+        else:
+            cur_row = location[0]
+            cur_col = location[1]
+            legal_locations.extend([(cur_row, cur_col-1), (cur_row, cur_col+1),
+                                   (cur_row-1, cur_col-1), (cur_row-1, cur_col),
+                                   (cur_row-1, cur_col+1), (cur_row+1, cur_col-1),
+                                    (cur_row+1, cur_col), (cur_row+1, cur_col+1)])
+            return legal_locations
+            
 
     def key_clicked(self, row, col):
-        if self._cur_seq is None:
-            self._cur_seq = self.board[row][col]
-        else:
-            self._cur_seq += self.board[row][col]
-
+        possible_moves = self.legal_locations(self._prev_button)
+        if possible_moves == -1 or (row, col) in self.legal_locations(self._prev_button):
+            if self._cur_seq is None:
+                self._cur_seq = self.board[row][col]
+            else:
+                self._cur_seq += self.board[row][col]
+            self._prev_button = (row, col)
+        
     def calc_end_time(self, game_time):
         return datetime.now() + timedelta(minutes=game_time)
 

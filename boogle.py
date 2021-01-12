@@ -55,7 +55,6 @@ class BoogleClass:
         self._gui._main_window.after(60, self._animate)
 
 
-
     def run(self):
         self._animate()
         self._gui.run()
