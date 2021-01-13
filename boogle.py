@@ -7,7 +7,7 @@ GAME_MINUTES = 3
 BOARD_SIZE = 4
 GOOD_KEY_COLOR = "DarkOliveGreen2"
 BAD_KEY_COLOR = "coral1"
-REGULAR_COLOR = 'lightgray'
+REGULAR_COLOR = 'tan1'
 
 
 class BoogleClass:
@@ -62,8 +62,8 @@ class BoogleClass:
             for col in range(len(self._model.board[0])):
                 self.assign_key(row, col)
 
-        self._gui._start_button["text"] = "Re-start!"
-        self._gui._start_button["bg"] = "tomato"
+        self._gui.start_button_reshape()
+
 
     def _animate(self):
         if self.end_time is not None:
