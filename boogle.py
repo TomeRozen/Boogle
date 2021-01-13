@@ -6,7 +6,7 @@ from datetime import timedelta
 GAME_MINUTES = 3
 BOARD_SIZE = 4
 GOOD_KEY_COLOR = "DarkOliveGreen2"
-BAD_KEY_COLOR ="coral1"
+BAD_KEY_COLOR = "coral1"
 REGULAR_COLOR = 'lightgray'
 
 
@@ -20,12 +20,19 @@ class BoogleClass:
 
         self._gui._start_button["command"] = self.start_action
         self._gui._submit_button["command"] = self.submission
+        self._gui._del_button["command"] = self.del_cmd()
 
     def create_key_cmd(self, row, col):
         def fun():
             self._model.key_clicked(row, col)
             self._gui.set_display(self._model.get_cur_seq())
         return fun
+
+    def del_cmd(self):
+        def del_func():
+            self._model.del_clicked()
+            self._gui.set_display(self._model.get_cur_seq())
+        return del_func
 
     def assign_key(self, row, col):
         self._gui.conf_key(str(row)+","+str(col),
@@ -34,7 +41,8 @@ class BoogleClass:
 
     def submission(self):
         self._model.submit_word()
-        self._gui.set_dict_display("Your Words:\n"+"\n".join(self._model._words_found))
+        self._gui.set_dict_display("Your Words:\n"+"\n"
+                                   .join(self._model._words_found))
         self._gui.set_score_display("Score: " + str(self._model._score))
         self._gui.set_display("")
 
@@ -76,12 +84,17 @@ class BoogleClass:
             for row in range(len(self._model.board)):
                 for col in range(len(self._model.board[0])):
                     if self._model.legal_locations():
-                        if (row, col) in self._model.legal_locations() and (row, col) not in self._model.get_keys_pressed():
-                            self._gui.conf_key_color(str(row) + "," + str(col), GOOD_KEY_COLOR)
+                        if (row, col) in self._model.legal_locations() and \
+                                (row, col) not in \
+                                self._model.get_keys_pressed():
+                            self._gui.conf_key_color(str(row) + "," + str(col),
+                                                     GOOD_KEY_COLOR)
                         else:
-                            self._gui.conf_key_color(str(row) + "," + str(col), BAD_KEY_COLOR)
+                            self._gui.conf_key_color(str(row) + "," + str(col),
+                                                     BAD_KEY_COLOR)
                     else:
-                        self._gui.conf_key_color(str(row) + "," + str(col), REGULAR_COLOR)
+                        self._gui.conf_key_color(str(row) + "," + str(col),
+                                                 REGULAR_COLOR)
         self._gui._main_window.after(60, self._color_keys)
 
     def run(self):
