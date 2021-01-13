@@ -48,17 +48,21 @@ def _helper_find_length(board, word, row_ind, col_ind, word_paths, cur_path, seq
     cur_path.append((row_ind, col_ind))
     seq = seq+board[row_ind][col_ind]
 
+    if cur_path.count(cur_path[-1]) == 2:
+        del cur_path[-1]
+        return
+
     if seq != word[:len(seq)]:
-        del cur_path[-len(board[row_ind][col_ind]):]
+        del cur_path[-1]
         return
     if len(seq) > len(word):
-        del cur_path[-len(board[row_ind][col_ind]):]
+        del cur_path[-1]
         return
     if len(seq) == len(word):
         if seq == word:
             word_paths.append(cur_path[:])
-            del cur_path[-len(board[row_ind][col_ind]):]
-            return
+            del cur_path[-1]
+            return word_paths
 
     if row_ind < len(board)-1:
         _helper_find_length(board, word, row_ind + 1, col_ind, word_paths, cur_path,
@@ -99,7 +103,7 @@ def _helper_find_length(board, word, row_ind, col_ind, word_paths, cur_path, seq
         _helper_find_length(board, word, row_ind + 1, col_ind + 1, word_paths,  cur_path,
                         seq)
 
-    del cur_path[-len(board[row_ind][col_ind]):]
+    del cur_path[-1]
 
     return word_paths
 
