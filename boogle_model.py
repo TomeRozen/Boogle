@@ -33,6 +33,8 @@ class BoogleModel:
                 self._words_found.append(self._cur_seq)
                 self._score += len(self._cur_seq) ** 2
                 self.reset_all()
+            else:
+                self.reset_all()
         else:
             self.reset_all()
 
