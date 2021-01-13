@@ -7,7 +7,6 @@ DICT_FILE = "boggle_dict.txt"
 class BoogleModel:
     _cur_seq: str
     _prev_button: Tuple
-    _cur_display: str
     _keys_pressed: List
 
     def __init__(self):
@@ -20,7 +19,6 @@ class BoogleModel:
     def reset_all(self):
         self._cur_seq = ""
         self._prev_button = ""
-        self._cur_display = ""
         self._keys_pressed = []
 
     def add_letter(self, word, letter):
@@ -64,8 +62,17 @@ class BoogleModel:
             else:
                 self._cur_seq += self.board[row][col]
 
+            if self._prev_button:
+                self._keys_pressed.append(self._prev_button)
             self._prev_button = (row, col)
-            self._keys_pressed.append(self._prev_button)
+
+    def del_clicked(self):
+        if self._cur_seq:
+            self._cur_seq = self._cur_seq[:-1]
+            if self._keys_pressed:
+                self._prev_button = self._keys_pressed.pop()
+            else:
+                self._prev_button = ""
 
     def calc_end_time(self, game_time):
         return datetime.now() + timedelta(minutes=game_time)
@@ -84,6 +91,7 @@ class BoogleModel:
 
     def get_keys_pressed(self):
         return self._keys_pressed
+
     def set_score(self):
         self._score = 0
 
