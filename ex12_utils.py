@@ -4,6 +4,11 @@ MAX_COORD = 3
 
 
 def load_words_dict(file_path):
+    """
+    loads the dictionary of words from file path given
+    :param file_path: path to dict
+    :return: dictionary of words
+    """
     words_dict = {}
     with open(file_path) as file:
         for line in file.readlines():
@@ -12,6 +17,13 @@ def load_words_dict(file_path):
 
 
 def is_valid_path(board: List[List[str]], path: List, words: Dict):
+    """
+    checks if  a path to a word submitted is valid
+    :param board: boggle board
+    :param path: list of coordination
+    :param words: dictionary of words
+    :return: returns word if valid, None if not
+    """
     word = ""
     for index, location in enumerate(path):
         if path.count(location) > 1:
@@ -31,6 +43,13 @@ def is_valid_path(board: List[List[str]], path: List, words: Dict):
 
 
 def find_length_n_words(n, board, words):
+    """
+    finds all n length words and routes to them recursively, using the help function
+    :param n: length of word (not number of coordinates)
+    :param board: game  board
+    :param words: dictionary of words
+    :return:
+    """
     paths_list = []
     for word in words:
         if len(word) == n:
@@ -49,6 +68,17 @@ def find_length_n_words(n, board, words):
 
 
 def _helper_find_length(board, word, row_ind, col_ind, word_paths, cur_path, seq):
+    """
+    the  recursive function to implement the logic
+    :param board: 
+    :param word: 
+    :param row_ind: 
+    :param col_ind: 
+    :param word_paths: 
+    :param cur_path: 
+    :param seq: 
+    :return: 
+    """
     cur_path.append((row_ind, col_ind))
     seq = seq+board[row_ind][col_ind]
 
@@ -69,43 +99,42 @@ def _helper_find_length(board, word, row_ind, col_ind, word_paths, cur_path, seq
             return word_paths
 
     if row_ind < len(board)-1:
-        _helper_find_length(board, word, row_ind + 1, col_ind, word_paths, cur_path,
-                        seq)
+        _helper_find_length(board, word, row_ind + 1, col_ind, word_paths, 
+                            cur_path, seq)
 
     if row_ind > 0:
-        _helper_find_length(board, word, row_ind - 1, col_ind, word_paths,  cur_path,
-                        seq)
+        _helper_find_length(board, word, row_ind - 1, col_ind, word_paths, 
+                            cur_path, seq)
 
     if col_ind < len(board[0]) -1:
-        _helper_find_length(board, word, row_ind, col_ind + 1, word_paths,  cur_path,
-                        seq)
+        _helper_find_length(board, word, row_ind, col_ind + 1, word_paths, 
+                            cur_path, seq)
 
     if col_ind > 0:
-        _helper_find_length(board, word, row_ind, col_ind - 1, word_paths,   cur_path,
-                        seq)
+        _helper_find_length(board, word, row_ind, col_ind - 1, word_paths, 
+                            cur_path, seq)
 
 
     # up + left:
     if row_ind > 0 and col_ind > 0:
-        _helper_find_length(board, word, row_ind - 1, col_ind - 1, word_paths,   cur_path,
-                        seq)
+        _helper_find_length(board, word, row_ind - 1, col_ind - 1, word_paths, 
+                            cur_path, seq)
 
 
     # up + right:
     if row_ind > 0 and col_ind < len(board[0]) -1:
-        _helper_find_length(board, word, row_ind - 1, col_ind + 1, word_paths, cur_path,
-                        seq)
+        _helper_find_length(board, word, row_ind - 1, col_ind + 1, word_paths, 
+                            cur_path, seq)
 
 
     # down + left:
     if row_ind < len(board) -1 and col_ind > 0:
-        _helper_find_length(board, word, row_ind + 1, col_ind - 1, word_paths,  cur_path,
-                        seq)
-
+        _helper_find_length(board, word, row_ind + 1, col_ind - 1, word_paths, 
+                            cur_path, seq)
     # down + right:
     if row_ind < len(board) -1 and col_ind < len(board[0]) -1:
-        _helper_find_length(board, word, row_ind + 1, col_ind + 1, word_paths,  cur_path,
-                        seq)
+        _helper_find_length(board, word, row_ind + 1, col_ind + 1, word_paths, 
+                            cur_path, seq)
 
     del cur_path[-1]
 
