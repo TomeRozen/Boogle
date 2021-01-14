@@ -5,8 +5,11 @@ BUTTON_STYLE = {"font": ("Comic Sans MS", 20),
                 "borderwidth": 1,
                 "bg": REGULAR_COLOR,
                 }
+START_BUTTON_RESHAPE ={"text": "Re-start!", "bg": "OrangeRed2",
+                                     "width": 19, "height": 1, "font": ("Comic Sans MS", 18)}
 
-class BoogleGUI:
+
+class BoggleGUI:
     def __init__(self):
         root = tki.Tk()
         root.title("Boggle!")
@@ -77,8 +80,7 @@ class BoogleGUI:
         self._keys[key_name].configure(bg=color)
 
     def start_button_reshape(self):
-        self._start_button.configure(text="Re-start!", bg="OrangeRed2",
-                                     width=19, height=1, font=("Comic Sans MS", 18))
+        self._start_button.configure(**START_BUTTON_RESHAPE)
 
     def run(self):
         self._main_window.mainloop()
@@ -98,11 +100,11 @@ class BoogleGUI:
     def end_game(self, score):
         return tki.messagebox.askyesno(title="Game Over",
                             message="Time is out.\nYour Score is: " +
-                            str(score) + "\nDo you want to play again? " )
+                            str(score) + "\nDo you want to play again?")
 
     def quit_game(self):
         self._main_window.destroy()
 
 if __name__ == '__main__':
-    bg = BoogleGUI()
+    bg = boggleGUI()
     bg.run()

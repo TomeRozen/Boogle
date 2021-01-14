@@ -2,6 +2,7 @@ from typing import List, Tuple, Dict
 MIN_COORD = 0
 MAX_COORD = 3
 
+
 def load_words_dict(file_path):
     words_dict = {}
     with open(file_path) as file:
@@ -45,6 +46,7 @@ def find_length_n_words(n, board, words):
                                 paths_list.append((word,path))
                             word_paths = []
     return paths_list
+
 
 def _helper_find_length(board, word, row_ind, col_ind, word_paths, cur_path, seq):
     cur_path.append((row_ind, col_ind))
