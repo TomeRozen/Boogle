@@ -87,7 +87,8 @@ class BoggleModel:
         :return: 
         """
         if self._cur_seq:
-            self._cur_seq = self._cur_seq[:-len(self.board[self._prev_button[0]][self._prev_button[1]])]
+            self._cur_seq = self._cur_seq[:-len(
+                self.board[self._prev_button[0]][self._prev_button[1]])]
             if self._keys_pressed:
                 self._prev_button = self._keys_pressed.pop()
             else:

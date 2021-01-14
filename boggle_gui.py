@@ -76,7 +76,7 @@ class BoggleGUI:
         self._dict_list_label.pack(side=tki.TOP, fill=tki.BOTH)
         self._del_button.pack(side=tki.RIGHT)
 
-    def _create_buttons_in_keys_frame(self, board_size) -> None:
+    def _create_buttons_in_keys_frame(self, board_size):
         """
         Creates the letters buttons, by the wanted board size.
 
@@ -91,8 +91,7 @@ class BoggleGUI:
             for j in range(board_size):
                 self._make_button("", i, j)
 
-    def _make_button(self, button_char: str, row: int, col: int,
-                     rowspan: int = 1, columnspan: int = 1) -> tki.Button:
+    def _make_button(self, button_char, row, col, rowspan=1, columnspan=1):
         """
         a helper function of the _create_buttons_in_keys_frame function.
         creates each button.
