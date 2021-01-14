@@ -3,38 +3,26 @@ from ex12_utils import *
 from datetime import datetime, timedelta
 
 DICT_FILE = "boggle_dict.txt"
+START_SCORE = 0
 
-class BoogleModel:
-    _cur_seq: str
-    _prev_button: Tuple
-    _keys_pressed: List
-
+class BoggleModel:
     def __init__(self):
         self._words_dict = load_words_dict(DICT_FILE)
         self._words_found = list()
-        self._score = 0
+        self._score = START_SCORE
         self.board = None
-        self._prev_button = ""
 
     def reset_all(self):
         self._cur_seq = ""
         self._prev_button = ""
         self._keys_pressed = []
 
-    def add_letter(self, word, letter):
-        new_word = word + letter
-        return new_word
-
     def submit_word(self):
         if self._cur_seq in self._words_dict:
             if self._cur_seq not in self._words_found:
                 self._words_found.append(self._cur_seq)
                 self._score += len(self._cur_seq) ** 2
-                self.reset_all()
-            else:
-                self.reset_all()
-        else:
-            self.reset_all()
+        self.reset_all()
 
     def legal_locations(self):
         legal_locations = []
@@ -54,21 +42,18 @@ class BoogleModel:
         possible_moves = self.legal_locations()
         cur_key = (row, col)
         if (possible_moves is False or cur_key in
-            self.legal_locations()) and cur_key not in \
+            possible_moves) and cur_key not in \
                 self._keys_pressed:
-
-            if self._cur_seq is None:
-                self._cur_seq = self.board[row][col]
-            else:
-                self._cur_seq += self.board[row][col]
+            self._cur_seq += self.board[row][col]
 
             if self._prev_button:
                 self._keys_pressed.append(self._prev_button)
+
             self._prev_button = (row, col)
 
     def del_clicked(self):
         if self._cur_seq:
-            self._cur_seq = self._cur_seq[:-1]
+            self._cur_seq = self._cur_seq[:-len(self.board[self._prev_button[0]][self._prev_button[1]])]
             if self._keys_pressed:
                 self._prev_button = self._keys_pressed.pop()
             else:
@@ -92,8 +77,8 @@ class BoogleModel:
     def get_keys_pressed(self):
         return self._keys_pressed
 
-    def set_score(self):
+    def reset_score(self):
         self._score = 0
 
-    def set_words_found_list(self):
+    def reset_words_found_list(self):
         self._words_found = []
