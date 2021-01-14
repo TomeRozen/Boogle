@@ -1,7 +1,7 @@
 import tkinter as tki
 from tkinter import messagebox
-REGULAR_COLOR = 'lightgray'
-BUTTON_STYLE = {"font": ("Courier", 30),
+REGULAR_COLOR = 'tan1'
+BUTTON_STYLE = {"font": ("Comic Sans MS", 20),
                 "borderwidth": 1,
                 "bg": REGULAR_COLOR,
                 }
@@ -9,7 +9,7 @@ BUTTON_STYLE = {"font": ("Courier", 30),
 class BoogleGUI:
     def __init__(self):
         root = tki.Tk()
-        root.title("Boogle!")
+        root.title("Boggle!")
         root.resizable(False, False)
         self._main_window = root
         self._outer_frame = tki.Frame(root, bg="sienna1",
@@ -21,17 +21,16 @@ class BoogleGUI:
         self._display_label = tki.Label(self._display_frame, width=25, bg="tan1")
         self._right_frame = tki.Frame(self._outer_frame, bg="sienna1")
         self._countdown_label = tki.Label(self._right_frame, text="00:00:00",
-                                          bg="SkyBlue3",
+                                          bg="SeaGreen1",
                                           highlightbackground="sienna1",
-                                          highlightthickness=1)
-        self._start_button = tki.Button(self._outer_frame, text="Start", width=11,
-                                       bg="green3")
+                                          highlightthickness=1, font=("Comic Sans MS", 10))
+        self._start_button = tki.Button(self._outer_frame, text="Start", width=8, height=3,  bg="lawn green", font=("Comic Sans MS", 50))
         self._keys_frame = tki.Frame(self._outer_frame, bg="sienna1")
-        self._score_label = tki.Label(self._right_frame, text="Score: 0", bg="tomato2")
-        self._dict_list_label = tki.Label(self._right_frame, text="Your Words:\n", bg="IndianRed1")
-        self._submit_button = tki.Button(self._outer_frame, text="Submit Your Word", bg="lime green")
-        self._del_button = tki.Button(self._display_frame, text="<--",
-                                     bg="RosyBrown1")
+        self._score_label = tki.Label(self._right_frame, text="Score: 0", bg="green yellow",font=("Comic Sans MS", 10))
+        self._dict_list_label = tki.Label(self._right_frame, text="Your Words:\n", bg="gold2",font=("Comic Sans MS", 10))
+        self._submit_button = tki.Button(self._outer_frame, text="Submit Your Word", bg="chartreuse2",  font=("Comic Sans MS", 10))
+        self._del_button = tki.Button(self._display_frame, text="del",
+                                     bg="coral1",font=("Comic Sans MS", 10))
         self.pack()
 
         self._keys = {}
@@ -39,12 +38,12 @@ class BoogleGUI:
     def pack(self):
         self._outer_frame.pack(side=tki.TOP, fill=tki.BOTH, expand=True)
         self._display_frame.pack(side=tki.TOP, fill=tki.BOTH, expand=True)
-        self._display_label.pack(side=tki.LEFT, fill=tki.BOTH)
+        self._display_label.pack(side=tki.LEFT, fill=tki.BOTH, expand=True)
         self._right_frame.pack(side=tki.RIGHT, fill=tki.Y, expand=True)
-        self._countdown_label.pack(side=tki.TOP)
+        self._countdown_label.pack(side=tki.TOP, fill=tki.BOTH)
         self._start_button.pack(side=tki.BOTTOM)
-        self._score_label.pack(side=tki.TOP, expand=False, fill=tki.BOTH)
-        self._dict_list_label.pack(side=tki.TOP, expand=False, fill=tki.BOTH)
+        self._score_label.pack(side=tki.TOP, fill=tki.BOTH)
+        self._dict_list_label.pack(side=tki.TOP, fill=tki.BOTH)
         self._del_button.pack(side=tki.RIGHT)
 
     def _create_buttons_in_keys_frame(self, board_size) -> None:
@@ -76,6 +75,10 @@ class BoogleGUI:
 
     def conf_key_color(self, key_name, color):
         self._keys[key_name].configure(bg=color)
+
+    def start_button_reshape(self):
+        self._start_button.configure(text="Re-start!", bg="OrangeRed2",
+                                     width=19, height=1, font=("Comic Sans MS", 18))
 
     def run(self):
         self._main_window.mainloop()
