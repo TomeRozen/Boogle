@@ -1,1 +1,8 @@
-<Describe your project's features here>
+We added the next unique features to our Boggle game:
+1. Colour-based Presentation of the available to click letter keys. Basically all the buttons that are valid to be clicked are shown in green colour, and the rest are being shown in red. That makes it easy to see what are your possible options to continue
+
+2. Non-valid keys won't be pressed when clicked on, based on the previous button that has been clicked.
+
+3. Delete button - you can click on it to go back one letter, if you regret your last step. All other features are being updated accordingly (like the presentation of valid keys
+
+3. Start button hides the board, and moves once being clicked on.

@@ -25,7 +25,8 @@ DICT_LABEL_STYLE = {"text": "Your Words:\n", "bg": "gold2",
                     "font": ("Comic Sans MS", 10)}
 SUBMIT_STYLE = {"text":"Submit Your Word", "bg": "chartreuse2",
                 "font": ("Comic Sans MS", 10)}
-DEL_STYLE = {"text": "del", "bg": "coral1", "font": ("Comic Sans MS", 10)}
+DEL_STYLE = {"text": "del", "bg": "coral1",
+             "font": ("Comic Sans MS", 10)}
 
 class BoggleGUI:
     """
@@ -41,14 +42,19 @@ class BoggleGUI:
         root.resizable(False, False)
         self._main_window = root
         self._outer_frame = tki.Frame(root, **OUTER_FRAME_STYLE)
-        self._display_frame = tki.Frame(self._outer_frame, **DISPLAY_FRAME_STYLE)
-        self._display_label = tki.Label(self._display_frame, width=25, bg="tan1")
+        self._display_frame = tki.Frame(self._outer_frame,
+                                        **DISPLAY_FRAME_STYLE)
+        self._display_label = tki.Label(self._display_frame, width=25,
+                                        bg="tan1")
         self._right_frame = tki.Frame(self._outer_frame, bg="sienna1")
-        self._countdown_label = tki.Label(self._right_frame, **COUNT_LABEL_STYLE)
-        self._start_button = tki.Button(self._outer_frame, **START_BUTTON_STYLE)
+        self._countdown_label = tki.Label(self._right_frame,
+                                          **COUNT_LABEL_STYLE)
+        self._start_button = tki.Button(self._outer_frame,
+                                        **START_BUTTON_STYLE)
         self._keys_frame = tki.Frame(self._outer_frame, bg="sienna1")
         self._score_label = tki.Label(self._right_frame, **SCORE_LABEL_STYLE)
-        self._dict_list_label = tki.Label(self._right_frame, **DICT_LABEL_STYLE)
+        self._dict_list_label = tki.Label(self._right_frame,
+                                          **DICT_LABEL_STYLE)
         self._submit_button = tki.Button(self._outer_frame,**SUBMIT_STYLE)
         self._del_button = tki.Button(self._display_frame, **DEL_STYLE)
         self.pack()
